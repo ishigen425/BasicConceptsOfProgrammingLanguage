@@ -4,4 +4,4 @@
 
 [オンライン演習システム](https://www.fos.kuis.kyoto-u.ac.jp/~igarashi/CoPL/index.cgi)
 
-
+[ルールブック](https://www.fos.kuis.kyoto-u.ac.jp/~igarashi/CoPL/rulebook.pdf)
