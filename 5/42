@@ -1,0 +1,24 @@
+|- let sq = fun x -> x * x in sq 1 + sq 2 evalto 5 by E-Let {
+    |- fun x -> x * x evalto ()[fun x -> x * x] by E-Fun {};
+    sq = ()[fun x -> x * x] |- sq 1 + sq 2 evalto 5 by E-Plus {
+        sq = ()[fun x -> x * x] |- sq 1 evalto 1 by E-App {
+            sq = ()[fun x -> x * x] |- sq evalto ()[fun x -> x * x] by E-Var1 {};
+            sq = ()[fun x -> x * x] |- 1 evalto 1 by E-Int {};
+            x = 1 |- x * x evalto 1 by E-Times {
+                x = 1 |- x evalto 1 by E-Var1 {};
+                x = 1 |- x evalto 1 by E-Var1 {};
+                1 times 1 is 1 by B-Times {};
+            };
+        };
+        sq = ()[fun x -> x * x] |- sq 2 evalto 4 by E-App {
+            sq = ()[fun x -> x * x] |- sq evalto ()[fun x -> x * x] by E-Var1 {};
+            sq = ()[fun x -> x * x] |- 2 evalto 2 by E-Int {};
+            x = 2 |- x * x evalto 4 by E-Times {
+                x = 2 |- x evalto 2 by E-Var1 {};
+                x = 2 |- x evalto 2 by E-Var1 {};
+                2 times 2 is 4 by B-Times {};
+            };
+        };
+        1 plus 4 is 5 by B-Plus {};
+    };
+};

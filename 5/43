@@ -1,0 +1,28 @@
+|- let sm = fun f -> f 1 + f 2 in sm (fun x -> x * x) evalto 5 by E-Let {
+    |- fun f -> f 1 + f 2 evalto ()[fun f -> f 1 + f 2] by E-Fun {};
+    sm = ()[fun f -> f 1 + f 2] |- sm (fun x -> x * x) evalto 5 by E-App {
+        sm = ()[fun f -> f 1 + f 2] |- sm evalto ()[fun f -> f 1 + f 2] by E-Var1 {};
+        sm = ()[fun f -> f 1 + f 2] |- fun x -> x * x evalto (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] by E-Fun {};
+        f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- f 1 + f 2 evalto 5 by E-Plus {
+            f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- f 1 evalto 1 by E-App {
+                f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- f evalto (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] by E-Var1 {};
+                f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- 1 evalto 1 by E-Int {};
+                sm = ()[fun f -> f 1 + f 2], x = 1 |- x * x evalto 1 by E-Times {
+                    sm = ()[fun f -> f 1 + f 2], x = 1 |- x evalto 1 by E-Var1 {};
+                    sm = ()[fun f -> f 1 + f 2], x = 1 |- x evalto 1 by E-Var1 {};
+                    1 times 1 is 1 by B-Times {};
+                };
+            };
+            f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- f 2 evalto 4 by E-App {
+                f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- f evalto (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] by E-Var1 {};
+                f = (sm = ()[fun f -> f 1 + f 2])[fun x -> x * x] |- 2 evalto 2 by E-Int {};
+                sm = ()[fun f -> f 1 + f 2], x = 2 |- x * x evalto 4 by E-Times {
+                    sm = ()[fun f -> f 1 + f 2], x = 2 |- x evalto 2 by E-Var1 {};
+                    sm = ()[fun f -> f 1 + f 2], x = 2 |- x evalto 2 by E-Var1 {};
+                    2 times 2 is 4 by B-Times {};
+                };
+            };
+            1 plus 4 is 5 by B-Plus {};
+        };
+    };
+};
